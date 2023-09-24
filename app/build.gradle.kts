@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.unseewr1.leafyreader"
         minSdk = 16
-        targetSdk = 33
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -32,6 +32,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
