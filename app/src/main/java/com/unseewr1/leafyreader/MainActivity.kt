@@ -1,7 +1,9 @@
 package com.unseewr1.leafyreader
 
+import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -80,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                 bookGrid.adapter = customAdapter
 
 
-
                 // Notify the adapter of data changes
                 customAdapter.notifyDataSetChanged()
             } catch (e: Throwable) {
@@ -89,20 +90,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class CustomAdapter(context: Context, id: Int, objects: List<Item>) : ArrayAdapter<Item>(context, id, objects) {
+    inner class CustomAdapter(context: Context, id: Int, objects: List<Item>) :
+        ArrayAdapter<Item>(context, id, objects) {
+
+        override fun getItem(position: Int): Item = super.getItem(position)!!
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             val cover = LinearLayout(this@MainActivity)
             val imageView = ImageView(applicationContext)
             val textView = TextView(cover.context)
-            getItem(position)?.let {
+            getItem(position).let {
                 imageView.setImageResource(it.imageResource)
                 textView.text = it.uri.toString()
             }
             cover.addView(imageView)
             cover.addView(textView)
             cover.setOnClickListener {
-
+                val intent = Intent(Intent.ACTION_MAIN)
+                    .let {
+                        it.component = ComponentName("com.unseewr1.leafyreader", "com.unseewr1.leafyreader.PdfViewerActivity")
+                        it.putExtra("pdfUri", getItem(position).uri)
+                    }
+                startActivity(intent)
             }
             return cover
         }
