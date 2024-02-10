@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/rounded_corners"
+    android:id="@+id/bookView">
+
+    <ImageView
+        android:id="@+id/bookPreviewView"
+        android:layout_width="105dp"
+        android:layout_height="148dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        android:background="#446391" />
+
+    <TextView
+        android:id="@+id/bookNameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/bookPreviewView"
+        android:text="Java 8 In Action"
+        android:textColor="#EDFDFC"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/bookAuthorView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookNameView"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/bookPreviewView"
+        android:text="Raoul-Gabriel Urma"
+        android:textColor="#A1B3B5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/bookPreviewView"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

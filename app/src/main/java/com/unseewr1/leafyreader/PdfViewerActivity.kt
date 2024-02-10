@@ -1,25 +1,21 @@
 package com.unseewr1.leafyreader
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.github.barteksc.pdfviewer.PDFView
 import com.github.barteksc.pdfviewer.listener.OnTapListener
 import java.io.File
 
 class PdfViewerActivity : AppCompatActivity() {
+
     private lateinit var pdfView: PDFView
 
-    @SuppressLint("MissingInflatedId")
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)

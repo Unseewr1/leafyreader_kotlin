@@ -1,9 +1,7 @@
 package com.unseewr1.leafyreader
 
-import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,13 +9,15 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.GridView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.unseewr1.leafyreader.book.Book
+import com.unseewr1.leafyreader.book.BookAdapter
 import com.unseewr1.leafyreader.permission.externalstoragemanagement.ExternalStorageManagementPermissionGranderFactory
 import java.io.File
 
@@ -27,24 +27,25 @@ class MainActivity : AppCompatActivity() {
     private val permissionGrander = ExternalStorageManagementPermissionGranderFactory.create(this)
 
 
-    private val topPanel: TextView by lazy {
-        findViewById(R.id.topPanel)
-    }
-
-    private val bookGrid: GridView by lazy {
-        findViewById(R.id.bookGrid)
-    }
-
-
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        topPanel.text = "${Build.VERSION.SDK_INT}"
+
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
+
+        val uris = getSupportedFileUris(this)
+        val books = uris
+            .map { Book(it) }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = BookAdapter(this, books)
+
+
 
         permissionGrander.requirePermission()
 
-        topPanel.setOnClickListener {
+        /*topPanel.setOnClickListener {
 
             try {
 
@@ -87,37 +88,9 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Throwable) {
                 topPanel.text = e.message
             }
-        }
+        }*/
     }
 
-    inner class CustomAdapter(context: Context, id: Int, objects: List<Item>) :
-        ArrayAdapter<Item>(context, id, objects) {
-
-        override fun getItem(position: Int): Item = super.getItem(position)!!
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val cover = LinearLayout(this@MainActivity)
-            val imageView = ImageView(applicationContext)
-            val textView = TextView(cover.context)
-            getItem(position).let {
-                imageView.setImageResource(it.imageResource)
-                textView.text = it.uri.toString()
-            }
-            cover.addView(imageView)
-            cover.addView(textView)
-            cover.setOnClickListener {
-                val intent = Intent(Intent.ACTION_MAIN)
-                    .let {
-                        it.component = ComponentName("com.unseewr1.leafyreader", "com.unseewr1.leafyreader.PdfViewerActivity")
-                        it.putExtra("pdfUri", getItem(position).uri)
-                    }
-                startActivity(intent)
-            }
-            return cover
-        }
-    }
-
-    data class Item(val imageResource: Int, val uri: Uri)
 
     fun Search_Dir(dir: File): List<File> {
         val pdfPattern = ".pdf"
