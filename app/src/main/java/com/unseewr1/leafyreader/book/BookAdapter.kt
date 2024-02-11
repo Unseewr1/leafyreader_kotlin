@@ -13,6 +13,7 @@ import com.shockwave.pdfium.PdfDocument
 import com.shockwave.pdfium.PdfiumCore
 import com.unseewr1.leafyreader.PdfViewerActivity
 import com.unseewr1.leafyreader.R
+import com.unseewr1.leafyreader.textshorten.shortenText
 import java.io.File
 import java.io.FileOutputStream
 
@@ -35,9 +36,18 @@ class BookAdapter(
     ) {
         val meta = getPdfMetadata(context, items[position].uri)
         holder.bookTitleView.text = meta.title
+        shortenText(holder.bookTitleView)
         holder.bookAuthorView.text = meta.author
+        shortenText(holder.bookAuthorView)
         val startTime = System.currentTimeMillis()
-        holder.bookPreviewView.setImageBitmap(BitmapFactory.decodeFile(extractFirstPageAsJpg(context, items[position].uri).path))
+        holder.bookPreviewView.setImageBitmap(
+            BitmapFactory.decodeFile(
+                extractFirstPageAsJpg(
+                    context,
+                    items[position].uri
+                ).path
+            )
+        )
         Log.i("speed", "${System.currentTimeMillis() - startTime}ms")
 
         holder.bookView.setOnClickListener {

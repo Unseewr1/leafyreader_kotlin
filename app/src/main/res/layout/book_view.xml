@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@drawable/rounded_corners"
+    app:cardBackgroundColor="#1B3238"
+    android:padding="8dp"
+    app:cardCornerRadius="6dp"
     android:id="@+id/bookView">
+
 
     <ImageView
         android:id="@+id/bookPreviewView"
         android:layout_width="105dp"
         android:layout_height="148dp"
-        android:layout_centerVertical="true"
         android:layout_margin="8dp"
         android:background="#446391" />
 
@@ -18,6 +21,7 @@
         android:id="@+id/bookNameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_toEndOf="@+id/bookPreviewView"
@@ -30,9 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bookNameView"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="45dp"
         android:layout_marginRight="10dp"
-        android:layout_toEndOf="@+id/bookPreviewView"
+        android:layout_marginLeft="125dp"
         android:text="Raoul-Gabriel Urma"
         android:textColor="#A1B3B5" />
 
@@ -42,4 +46,4 @@
         android:layout_below="@id/bookPreviewView"
         android:layout_marginTop="10dp" />
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

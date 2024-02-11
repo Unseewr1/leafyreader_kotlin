@@ -6,12 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,61 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
 
+        permissionGrander.requirePermission()
+
         val uris = getSupportedFileUris(this)
         val books = uris
             .map { Book(it) }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = BookAdapter(this, books)
-
-
-
-        permissionGrander.requirePermission()
-
-        /*topPanel.setOnClickListener {
-
-            try {
-
-                val timeInMs = System.currentTimeMillis()
-                val items = getSupportedFileUris(this)
-                    .map { Item(R.drawable.ic_launcher_foreground, it) }
-                    .toList()
-                topPanel.text = "${System.currentTimeMillis() - timeInMs}ms"
-
-                if (items.isEmpty()) {
-                    val alertDialogBuilder = AlertDialog.Builder(this)
-
-                    // Set the title and message for the dialog
-                    alertDialogBuilder.setTitle("Alert Title")
-                    alertDialogBuilder.setMessage("This is a simple alert message.")
-
-                    // Set positive button and its click listener
-                    alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
-                        // Do something when the user clicks OK
-                        dialog.dismiss() // Close the dialog
-                    }
-
-                    // Set negative button and its click listener (optional)
-                    alertDialogBuilder.setNegativeButton("Cancel") { dialog, which ->
-                        // Do something when the user clicks Cancel (optional)
-                        dialog.dismiss() // Close the dialog
-                    }
-
-                    // Create and show the dialog
-                    val alertDialog = alertDialogBuilder.create()
-                    alertDialog.show()
-                }
-                val objects = items
-                val customAdapter = CustomAdapter(this, R.id.bookGrid, objects)
-                bookGrid.adapter = customAdapter
-
-
-                // Notify the adapter of data changes
-                customAdapter.notifyDataSetChanged()
-            } catch (e: Throwable) {
-                topPanel.text = e.message
-            }
-        }*/
     }
 
 
@@ -144,10 +91,8 @@ class MainActivity : AppCompatActivity() {
                     val filePath = cursor.getString(dataColumnIndex)
                     allVolumePdfFiles.add(Uri.parse("file://$filePath"))
                 }
+                it.close()
             }
-
-            // Close the cursor when done
-            cursor?.close()
         }
 
         return allVolumePdfFiles.toList()
