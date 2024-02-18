@@ -1,19 +1,13 @@
 package com.unseewr1.leafyreader
 
-import android.content.ContentResolver
-import android.content.Context
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.unseewr1.leafyreader.book.Book
 import com.unseewr1.leafyreader.book.BookAdapter
 import com.unseewr1.leafyreader.permission.externalstoragemanagement.ExternalStorageManagementPermissionGranderFactory
-import java.io.File
+import com.unseewr1.leafyreader.urifetcher.getSupportedFileUris
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +15,6 @@ class MainActivity : AppCompatActivity() {
     private val permissionGrander = ExternalStorageManagementPermissionGranderFactory.create(this)
 
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,26 +31,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = BookAdapter(this, books)
     }
 
-
-    fun Search_Dir(dir: File): List<File> {
-        val pdfPattern = ".pdf"
-        val FileList = dir.listFiles()
-        val result = mutableListOf<File>()
-        if (FileList != null) {
-            for (i in FileList.indices) {
-                if (FileList[i].isDirectory) {
-                    result.addAll(Search_Dir(FileList[i]))
-                } else {
-                    if (FileList[i].name.endsWith(pdfPattern)) {
-                        result.add(FileList[i])
-                    }
-                }
-            }
-        }
-        return result
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
+    /*@RequiresApi(Build.VERSION_CODES.Q)
     fun getSupportedFileUris(context: Context): List<Uri> {
         val contentResolver: ContentResolver = context.contentResolver
 
@@ -96,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         return allVolumePdfFiles.toList()
-    }
+    }*/
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

@@ -11,6 +11,7 @@ fun shortenText(textView: TextView) {
     textView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayout.invoke(textView))
 }
 
+
 private fun shortenTextDefault(textView: TextView) {
     val startTime = System.nanoTime()
     val originalText: CharSequence = textView.text
