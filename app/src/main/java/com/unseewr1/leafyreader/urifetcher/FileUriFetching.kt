@@ -1,30 +1,42 @@
 package com.unseewr1.leafyreader.urifetcher
 
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
+import com.unseewr1.leafyreader.fileuri.TypedUri
 import java.io.File
 
+private val supportedExtensions = arrayOf("pdf", "doc", "docs")
 
-fun getSupportedFileUris(context: Context): List<Uri> {
+
+fun getSupportedFileUris(context: Context): List<TypedUri> {
     return getSupportedFileUrisDefault(context)
 }
 
 
-private fun getSupportedFileUrisDefault(context: Context): List<Uri> {
-    val allVolumePdfFiles = mutableListOf<Uri>()
+private fun getSupportedFileUrisDefault(context: Context): List<TypedUri> {
+    val allVolumePdfFiles = mutableListOf<TypedUri>()
     val externalStorage = Environment.getExternalStorageDirectory()
-    findPdfFiles(externalStorage, allVolumePdfFiles)
+    findSupportedFiles(context, externalStorage, allVolumePdfFiles)
     return allVolumePdfFiles.toList()
 }
 
-private fun findPdfFiles(directory: File, pdfFiles: MutableList<Uri>) {
+private fun findSupportedFiles(context: Context, directory: File, uris: MutableList<TypedUri>) {
     val files = directory.listFiles() ?: return
     for (file in files) {
         if (file.isDirectory) {
-            findPdfFiles(file, pdfFiles)
-        } else if (file.extension.equals("pdf", ignoreCase = true)) {
-            pdfFiles.add(Uri.fromFile(file))
+            findSupportedFiles(context, file, uris)
+            continue
         }
+        TypedUri.fromFile(context, file)?.let {
+            uris.add(it)
+        }
+        /*    if (isSupportedFile(file)) {
+                uris.add(Uri.fromFile(file))
+            }
+        }*/
     }
 }
+
+/*
+private fun isSupportedFile(file: File) =
+    supportedExtensions.any { file.extension.equals(it, ignoreCase = true) }*/

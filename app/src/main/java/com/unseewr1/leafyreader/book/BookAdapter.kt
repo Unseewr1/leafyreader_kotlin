@@ -34,27 +34,34 @@ class BookAdapter(
         holder: BookViewHolder,
         position: Int,
     ) {
-        val meta = getPdfMetadata(context, items[position].uri)
-        holder.bookTitleView.text = meta.title
-        shortenText(holder.bookTitleView)
-        holder.bookAuthorView.text = meta.author
-        shortenText(holder.bookAuthorView)
-        val startTime = System.currentTimeMillis()
-        holder.bookPreviewView.setImageBitmap(
+        items[position].uri.let { uri ->
+            holder.bookTitleView.text = uri.title()
+            shortenText(holder.bookTitleView)
+            holder.bookAuthorView.text = uri.author()
+            shortenText(holder.bookAuthorView)
+
+            holder.bookPreviewView.setImageBitmap(uri.cover())
+            holder.bookView.setOnClickListener(uri.getOnClickListener())
+        }
+//        val meta = getPdfMetadata(context, items[position].uri)
+//        holder.bookTitleView.text = meta.title
+//        holder.bookAuthorView.text = meta.author
+//        val startTime = System.currentTimeMillis()
+        /*holder.bookPreviewView.setImageBitmap(
             BitmapFactory.decodeFile(
                 extractFirstPageAsJpg(
                     context,
                     items[position].uri
                 ).path
             )
-        )
-        Log.i("speed", "${System.currentTimeMillis() - startTime}ms")
-
+        )*/
+//        Log.i("speed", "${System.currentTimeMillis() - startTime}ms")
+/*
         holder.bookView.setOnClickListener {
             val intent = Intent(context, PdfViewerActivity::class.java)
-            intent.putExtra("pdfUri", items[position].uri)
+            intent.putExtra("pdfUri", items[position].uri.asUri())
             context.startActivity(intent)
-        }
+        }*/
     }
 
 
