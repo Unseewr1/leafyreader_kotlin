@@ -5,9 +5,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.text.format.Formatter.formatFileSize
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toFile
 import androidx.recyclerview.widget.RecyclerView
 import com.shockwave.pdfium.PdfDocument
 import com.shockwave.pdfium.PdfiumCore
@@ -41,6 +43,8 @@ class BookAdapter(
             shortenText(holder.bookAuthorView)
 
             holder.bookPreviewView.setImageBitmap(uri.cover())
+            holder.bookExtensionView.text = uri.asUri().toFile().extension.uppercase()
+            holder.bookSizeView.text = formatFileSize(context, uri.asUri().toFile().length())
             holder.bookView.setOnClickListener(uri.getOnClickListener())
         }
 //        val meta = getPdfMetadata(context, items[position].uri)

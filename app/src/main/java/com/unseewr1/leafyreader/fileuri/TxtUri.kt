@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.view.View
+import androidx.core.net.toFile
 import androidx.core.net.toUri
 import com.unseewr1.leafyreader.TxtViewerActivity
 import java.io.File
@@ -13,7 +14,7 @@ class TxtUri(
     file: File,
 ) : TypedUri(context, file.toUri()) {
 
-    override fun title(): String = ""
+    override fun title(): String = asUri().toFile().nameWithoutExtension
 
     override fun author(): String = ""
 

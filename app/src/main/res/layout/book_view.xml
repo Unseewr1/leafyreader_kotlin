@@ -39,6 +39,29 @@
         android:text="Raoul-Gabriel Urma"
         android:textColor="#A1B3B5" />
 
+    <!-- Additional TextView for "PDF" string -->
+    <TextView
+        android:id="@+id/bookExtensionView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookAuthorView"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="70dp"
+        android:text="PDF"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/bookSizeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookAuthorView"
+        android:layout_marginLeft="165dp"
+        android:layout_marginTop="70dp"
+        android:text="1MB"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"

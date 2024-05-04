@@ -15,4 +15,6 @@ class BookViewHolder(
     val bookPreviewView: ImageView = bookView.findViewById(R.id.bookPreviewView)
     val bookTitleView: TextView = bookView.findViewById(R.id.bookNameView)
     val bookAuthorView: TextView = bookView.findViewById(R.id.bookAuthorView)
+    val bookExtensionView: TextView = bookView.findViewById(R.id.bookExtensionView)
+    val bookSizeView: TextView = bookView.findViewById(R.id.bookSizeView)
 }
