@@ -22,11 +22,11 @@ abstract class TypedUri(
         fun fromFile(
             context: Context,
             file: File
-        ): TypedUri? =
-            when (file.extension.lowercase()) {
-                "pdf" -> PdfUri(context, file)
-                "doc" -> DocUri(context, file)
-                else -> null
-            }
+        ): TypedUri? = when (file.extension.lowercase()) {
+            "pdf" -> PdfUri(context, file)
+            "doc" -> DocUri(context, file)
+            "txt" -> TxtUri(context, file)
+            else -> null
+        }
     }
 }

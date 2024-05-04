@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bookView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    app:cardBackgroundColor="#1B3238"
+    android:layout_marginTop="5dp"
     android:padding="8dp"
-    app:cardCornerRadius="6dp"
-    android:id="@+id/bookView">
-
+    app:cardBackgroundColor="#1B3238"
+    app:cardCornerRadius="6dp">
 
     <ImageView
         android:id="@+id/bookPreviewView"
@@ -34,9 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bookNameView"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="45dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="125dp"
         android:text="Raoul-Gabriel Urma"
         android:textColor="#A1B3B5" />
 
