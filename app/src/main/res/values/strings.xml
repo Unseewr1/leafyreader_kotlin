@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LeafyReader</string>
+    <string name="something_went_wrong_during_file_opening">Something went wrong during file opening</string>
 </resources>

@@ -20,10 +20,10 @@ class TxtViewerActivity: AppCompatActivity() {
         val intent: Intent? = intent
         val uri: Uri = intent?.getParcelableExtra("txtUri")!! // Replace with your Uri
 
-        uri.let {
+        uri.let { fileUri ->
             try {
                 // Open the URI for reading
-                contentResolver.openInputStream(it)?.use { inputStream ->
+                contentResolver.openInputStream(fileUri)?.use { inputStream ->
                     val reader = BufferedReader(InputStreamReader(inputStream))
                     val stringBuilder = StringBuilder()
                     var line: String?
@@ -36,9 +36,8 @@ class TxtViewerActivity: AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                textView.text = getString(R.string.something_went_wrong_during_file_opening);
             }
-        } ?: run {
-            textView.text = "No file selected"
         }
     }
 }
