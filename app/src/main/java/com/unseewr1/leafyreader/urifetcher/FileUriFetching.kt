@@ -5,8 +5,6 @@ import android.os.Environment
 import com.unseewr1.leafyreader.fileuri.TypedUri
 import java.io.File
 
-private val supportedExtensions = arrayOf("pdf", "doc", "docs")
-
 
 fun getSupportedFileUris(context: Context): List<TypedUri> {
     return getSupportedFileUrisDefault(context)
@@ -30,13 +28,6 @@ private fun findSupportedFiles(context: Context, directory: File, uris: MutableL
         TypedUri.fromFile(context, file)?.let {
             uris.add(it)
         }
-        /*    if (isSupportedFile(file)) {
-                uris.add(Uri.fromFile(file))
-            }
-        }*/
     }
 }
 
-/*
-private fun isSupportedFile(file: File) =
-    supportedExtensions.any { file.extension.equals(it, ignoreCase = true) }*/
