@@ -36,7 +36,7 @@ class TxtViewerActivity: AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                textView.text = getString(R.string.something_went_wrong_during_file_opening);
+                textView.text = getString(R.string.something_went_wrong_during_file_opening)
             }
         }
     }
