@@ -18,7 +18,7 @@ class TxtViewerActivity: AppCompatActivity() {
 
         // Get the intent that started this activity
         val intent: Intent? = intent
-        val uri: Uri = intent?.getParcelableExtra("txtUri")!! // Replace with your Uri
+        val uri: Uri = intent?.getParcelableExtra("txtUri")!!
 
         uri.let { fileUri ->
             try {
