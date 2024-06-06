@@ -10,8 +10,11 @@ import androidx.core.net.toUri
 import com.shockwave.pdfium.PdfDocument
 import com.shockwave.pdfium.PdfiumCore
 import com.unseewr1.leafyreader.PdfViewerActivity
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileReader
+import java.io.FileWriter
 
 class PdfUri(
     context: Context,
@@ -32,7 +35,41 @@ class PdfUri(
     override fun getOnClickListener() = View.OnClickListener {
         val intent = Intent(context, PdfViewerActivity::class.java)
         intent.putExtra("pdfUri", asUri())
+        intent.putExtra("lastPage", getLastPage(context, asUri().path.toString()))
         context.startActivity(intent)
+    }
+
+    private fun getLastPage(context: Context, pdfUri: String): Int {
+        val cacheFile = File(context.cacheDir, "lastPages.txt")
+        if (!cacheFile.exists()) {
+            cacheFile.createNewFile()
+        }
+
+        val lastPagesMap = mutableMapOf<String, Int>()
+
+        // Read the file and fill the map
+        BufferedReader(FileReader(cacheFile)).use { reader ->
+            reader.forEachLine { line ->
+                val parts = line.split(" - ")
+                if (parts.size > 1) {
+                    val name = parts.subList(0, parts.size - 1).joinToString(" - ")
+                    lastPagesMap[name] = parts[parts.size - 1].toInt()
+                }
+            }
+        }
+
+        // Get the last page or default to 0
+        val lastPage = lastPagesMap[pdfUri] ?: 0
+
+        // If it's a new URI, add it to the map and write to the file
+        if (!lastPagesMap.containsKey(pdfUri)) {
+            lastPagesMap[pdfUri] = lastPage
+            FileWriter(cacheFile, true).use { writer ->
+                writer.append("$pdfUri - $lastPage\n")
+            }
+        }
+
+        return lastPage
     }
 
 
