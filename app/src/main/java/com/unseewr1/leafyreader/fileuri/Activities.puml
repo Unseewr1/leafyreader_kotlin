@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class TypedUri
+
+class TxtUri
+
+TypedUri <|-- TxtUri
+
+class PdfUri
+
+TypedUri <|-- PdfUri
+
+class PdfViewerActivity
+
+PdfUri <|-- PdfViewerActivity
+TxtUri <|-- TxtViewerActivity
+
+@enduml

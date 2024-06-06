@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PermissionGrander {
+requirePermission(): void
+onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray)
+}
+
+abstract class ExternalStorageManagementPermissionGrander  {
+    requirePermission(): void
+    abstract permissionReceived(): Boolean
+    abstract tryObtainPermission(): void
+}
+
+PermissionGrander <|-- ExternalStorageManagementPermissionGrander
+
+class ApiLevel30ExternalStorageManagementPermissionGrander {
+    requirePermission(): void
+    abstract permissionReceived(): Boolean
+    abstract tryObtainPermission(): void
+}
+
+class ApiLevel16ExternalStorageManagementPermissionGrander {
+    requirePermission(): void
+    abstract permissionReceived(): Boolean
+    abstract tryObtainPermission(): void
+}
+
+ExternalStorageManagementPermissionGrander <|-- ApiLevel16ExternalStorageManagementPermissionGrander
+ExternalStorageManagementPermissionGrander <|-- ApiLevel30ExternalStorageManagementPermissionGrander
+
+
+@enduml

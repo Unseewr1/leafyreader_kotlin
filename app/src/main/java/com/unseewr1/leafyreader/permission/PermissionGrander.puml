@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PermissionGrander {
+requirePermission(): void
+onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray)
+}
+
+@enduml
